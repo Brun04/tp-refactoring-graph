@@ -5,9 +5,9 @@ import java.io.File;
 import org.acme.graph.io.GraphReader;
 import org.acme.graph.model.Edge;
 import org.acme.graph.model.Graph;
-import org.acme.graph.model.Path;
 import org.acme.graph.model.Vertex;
 import org.acme.graph.routing.DijkstraPathFinder;
+import org.acme.graph.routing.Path;
 
 /**
  * 

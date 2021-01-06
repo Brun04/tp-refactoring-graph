@@ -1,7 +1,9 @@
-package org.acme.graph.model;
+package org.acme.graph.routing;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.acme.graph.model.Edge;
 
 public class Path {
 	/**

@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import org.acme.graph.TestGraphFactory;
 import org.acme.graph.model.Edge;
 import org.acme.graph.model.Graph;
-import org.acme.graph.model.Path;
 import org.junit.Before;
 import org.junit.Test;
 
