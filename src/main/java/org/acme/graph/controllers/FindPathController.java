@@ -32,7 +32,7 @@ public class FindPathController {
 		DijkstraPathFinder pathFinder = new DijkstraPathFinder(graph);
 		Vertex origin = graph.findVertex(originId);
 		Vertex destination = graph.findVertex(destinationId);
-		return pathFinder.findPath(origin, destination);
+		return pathFinder.findPath(origin, destination).getEdges();
 	}
 
 }
