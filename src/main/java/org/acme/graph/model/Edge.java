@@ -89,9 +89,12 @@ public class Edge {
 
 	@JsonSerialize(using = GeometrySerializer.class)
 	public LineString getGeometry() {
-		GeometryFactory geomFact = new GeometryFactory();
-		Coordinate[] coords = {this.source.getCoordinate(), this.target.getCoordinate()};
-		return geomFact.createLineString(coords);
+		if(this.geometry == null) {
+			GeometryFactory geomFact = new GeometryFactory();
+			Coordinate[] coords = {this.source.getCoordinate(), this.target.getCoordinate()};
+			this.geometry = geomFact.createLineString(coords);
+		}
+		return this.geometry;
 	}
 	
 	public void setGeometry(LineString geometry) {
