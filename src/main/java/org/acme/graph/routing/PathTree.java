@@ -20,13 +20,6 @@ public class PathTree {
 	public PathTree(Vertex source) {
 		this.nodes = new HashMap<Vertex, PathNode>();
 		log.trace("PathTree({})", source);
-		/*for (Vertex vertex : graph.getVertices()) {
-			PathNode node = new PathNode();
-			node.setCost(source == vertex ? 0.0 : Double.POSITIVE_INFINITY);
-			node.setReachingEdge(null);
-			node.setVisited(false);
-			this.nodes.put(vertex, node);
-		}*/
 		PathNode node = new PathNode();
 		node.setCost(0.0);
 		node.setReachingEdge(null);
