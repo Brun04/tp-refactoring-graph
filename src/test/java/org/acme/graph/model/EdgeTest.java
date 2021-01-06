@@ -35,4 +35,14 @@ public class EdgeTest {
 		assertEquals(new Coordinate(0.0, 0.0), lineString.getCoordinateN(0));
 		assertEquals(new Coordinate(1.0, 0.0), lineString.getCoordinateN(1));
 	}
+	
+	@Test
+	public void testToString() {
+		Graph graph = new Graph();
+		Vertex a = graph.createVertex(new Coordinate(0.0, 0.0), "a");
+		Vertex b = graph.createVertex(new Coordinate(1.0, 0.0), "b");
+		Edge e = graph.createEdge(a, b, "ab");
+		
+		assertEquals("ab (a->b)", e.toString());
+	}
 }
