@@ -25,19 +25,6 @@ public class Vertex {
 	 * Position du sommet
 	 */
 	private Coordinate coordinate;
-
-	/**
-	 * dijkstra - coût pour atteindre le sommet
-	 */
-	private double cost;
-	/**
-	 * dijkstra - arc entrant avec le meilleur coût
-	 */
-	private Edge reachingEdge;
-	/**
-	 * dijkstra - indique si le sommet est visité
-	 */
-	private boolean visited;
 	
 	@JsonIgnore
 	private List<Edge> inEdges;
@@ -66,37 +53,12 @@ public class Vertex {
 		this.coordinate = coordinate;
 	}
 
-	public double getCost() {
-		return cost;
-	}
-
-	public void setCost(double cost) {
-		this.cost = cost;
-	}
-
-	@JsonIgnore
-	public Edge getReachingEdge() {
-		return reachingEdge;
-	}
-
-	public void setReachingEdge(Edge reachingEdge) {
-		this.reachingEdge = reachingEdge;
-	}
-
 	public Collection<Edge> getInEdges() {
 		return inEdges;
 	}
 
 	public Collection<Edge> getOutEdges() {
 		return outEdges;
-	}
-
-	public boolean isVisited() {
-		return visited;
-	}
-
-	public void setVisited(boolean visited) {
-		this.visited = visited;
 	}
 
 	@Override
