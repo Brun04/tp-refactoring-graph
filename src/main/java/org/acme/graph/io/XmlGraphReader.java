@@ -2,9 +2,7 @@ package org.acme.graph.io;
 
 import java.io.File;
 
-import org.acme.graph.model.Edge;
 import org.acme.graph.model.Graph;
-import org.acme.graph.model.Vertex;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.input.SAXBuilder;

@@ -1,6 +1,5 @@
 package org.acme.graph;
 
-import org.acme.graph.model.Edge;
 import org.acme.graph.model.Graph;
 import org.acme.graph.model.Vertex;
 
@@ -24,9 +23,9 @@ public class TestGraphFactory {
 		Vertex c = graph.createVertex(new Coordinate(2.0, 0.0), "c");
 		Vertex d = graph.createVertex(new Coordinate(1.0, 1.0), "d");
 		
-		Edge ab = graph.createEdge(a, b, "ab");
-		Edge bc = graph.createEdge(b, c, "bc");
-		Edge ad = graph.createEdge(a, d, "ad");
+		graph.createEdge(a, b, "ab");
+		graph.createEdge(b, c, "bc");
+		graph.createEdge(a, d, "ad");
 		return graph;
 	}
 
