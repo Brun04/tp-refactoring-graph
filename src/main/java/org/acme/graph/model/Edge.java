@@ -32,6 +32,9 @@ public class Edge {
 	 */
 	private Vertex target;
 	
+	/**
+	 * Geometric representation
+	 */
 	private LineString geometry;
 	
 	
