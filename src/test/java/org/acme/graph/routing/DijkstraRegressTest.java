@@ -55,4 +55,10 @@ public class DijkstraRegressTest {
 			assertEquals("c", edge.getTarget().getId());
 		}
 	}
+	
+	@Test
+	public void testBBNotFound() {
+		Path path = finder.findPath(graph.findVertex("b"), graph.findVertex("b"));
+		assertEquals(0, path.getPathLen());
+	}
 }
