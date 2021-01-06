@@ -3,7 +3,6 @@ package org.acme.graph.routing;
 import java.util.Collection;
 
 import org.acme.graph.model.Edge;
-import org.acme.graph.model.Graph;
 import org.acme.graph.model.Vertex;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,13 +17,10 @@ import org.apache.logging.log4j.Logger;
 public class DijkstraPathFinder {
 
 	private static final Logger log = LogManager.getLogger(DijkstraPathFinder.class);
-
-	private Graph graph;
 	
 	private PathTree pathTree;
 
-	public DijkstraPathFinder(Graph graph) {
-		this.graph = graph;
+	public DijkstraPathFinder() {
 	}
 
 	/**
@@ -37,10 +33,10 @@ public class DijkstraPathFinder {
 	public Path findPath(Vertex origin, Vertex destination) {
 		log.info("findPath({},{})...",origin,destination);
 		Vertex current;
-		this.pathTree = new PathTree(graph, origin);
+		this.pathTree = new PathTree(origin);
 		while ((current = findNextVertex()) != null) {
 			visit(current);
-			if (pathTree.getNode(destination).getReachingEdge() != null) {
+			if (pathTree.isReached(destination)) {
 				log.info("findPath({},{}) : path found",origin,destination);
 				return new Path(pathTree.getPath(destination));
 			}
@@ -68,7 +64,7 @@ public class DijkstraPathFinder {
 			 * sachant que les sommets non atteint ont pour coût "POSITIVE_INFINITY"
 			 */
 			double newCost = pathTree.getNode(vertex).getCost() + outEdge.getCost();
-			PathNode reachedNode = pathTree.getNode(reachedVertex);
+			PathNode reachedNode = pathTree.getOrCreateNode(reachedVertex);
 			if (newCost < reachedNode.getCost()) {
 				reachedNode.setCost(newCost);
 				reachedNode.setReachingEdge(outEdge);
@@ -90,8 +86,8 @@ public class DijkstraPathFinder {
 	private Vertex findNextVertex() {
 		double minCost = Double.POSITIVE_INFINITY;
 		Vertex result = null;
-		for (Vertex vertex : graph.getVertices()) {
-			PathNode node = pathTree.getNode(vertex);
+		for (Vertex vertex : pathTree.getReachedVertices()) {
+			PathNode node = pathTree.getOrCreateNode(vertex);
 			// sommet déjà visité?
 			if (node.isVisited()) {
 				continue;

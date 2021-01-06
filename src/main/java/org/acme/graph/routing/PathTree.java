@@ -1,13 +1,13 @@
 package org.acme.graph.routing;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.acme.graph.model.Edge;
-import org.acme.graph.model.Graph;
 import org.acme.graph.model.Vertex;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,18 +17,22 @@ public class PathTree {
 	
 	private Map<Vertex, PathNode> nodes;
 	
-	public PathTree(Graph graph, Vertex source) {
+	public PathTree(Vertex source) {
 		this.nodes = new HashMap<Vertex, PathNode>();
 		log.trace("PathTree({})", source);
-		for (Vertex vertex : graph.getVertices()) {
+		/*for (Vertex vertex : graph.getVertices()) {
 			PathNode node = new PathNode();
 			node.setCost(source == vertex ? 0.0 : Double.POSITIVE_INFINITY);
 			node.setReachingEdge(null);
 			node.setVisited(false);
 			this.nodes.put(vertex, node);
-		}
+		}*/
+		PathNode node = new PathNode();
+		node.setCost(0.0);
+		node.setReachingEdge(null);
+		node.setVisited(false);
+		this.nodes.put(source, node);
 	}
-	
 	
 	/**
 	 * Récupère le chemin en remontant les relations incoming edge
@@ -51,5 +55,25 @@ public class PathTree {
 	
 	public PathNode getNode(Vertex vertex) {
 		return this.nodes.get(vertex);
+	}
+
+	public boolean isReached(Vertex destination) {
+		return getNode(destination) != null && getNode(destination).getReachingEdge() != null;
+	}
+	
+	public PathNode getOrCreateNode(Vertex vertex) {
+		PathNode node = getNode(vertex);
+		if(node == null) {
+			node = new PathNode();
+			node.setCost(Double.POSITIVE_INFINITY);
+			node.setReachingEdge(null);
+			node.setVisited(false);
+			this.nodes.put(vertex, node);
+		}
+		return node;
+	}
+	
+	public Collection<Vertex> getReachedVertices(){
+		return this.nodes.keySet();
 	}
 }

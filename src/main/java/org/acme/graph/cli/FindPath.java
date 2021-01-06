@@ -43,7 +43,7 @@ public class FindPath {
 			System.err.println("vertex " + args[2] + " not found");
 		}
 
-		DijkstraPathFinder pathFinder = new DijkstraPathFinder(graph);
+		DijkstraPathFinder pathFinder = new DijkstraPathFinder();
 		Path pathEdges = pathFinder.findPath(source, target);
 		if (pathEdges.getPathLen() == 0) {
 			System.err.println("path not found");

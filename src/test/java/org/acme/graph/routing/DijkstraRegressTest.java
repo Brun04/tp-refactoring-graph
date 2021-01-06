@@ -23,7 +23,7 @@ public class DijkstraRegressTest {
 	@Before
 	public void setUp() throws Exception {
 		this.graph = TestGraphFactory.createGraph01();
-		this.finder = new DijkstraPathFinder(graph);
+		this.finder = new DijkstraPathFinder();
 	}
 
 	@Test
