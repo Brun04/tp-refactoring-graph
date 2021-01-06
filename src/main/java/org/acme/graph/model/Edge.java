@@ -1,11 +1,9 @@
 package org.acme.graph.model;
 
-import com.bedatadriven.jackson.datatype.jts.serialization.GeometryDeserializer;
 import com.bedatadriven.jackson.datatype.jts.serialization.GeometrySerializer;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.GeometryFactory;
@@ -34,12 +32,15 @@ public class Edge {
 	 */
 	private Vertex target;
 	
+	private LineString geometry;
+	
 	
 	Edge(Vertex source, Vertex target) {
 		this.source = source;
 		this.source.getOutEdges().add(this);
 		this.target = target;
 		this.target.getInEdges().add(this);
+		this.geometry = this.getGeometry();
 	}
 
 	public String getId() {
@@ -74,7 +75,8 @@ public class Edge {
 	 * @return
 	 */
 	public double getCost() {
-		return source.getCoordinate().distance(target.getCoordinate());
+		//return source.getCoordinate().distance(target.getCoordinate());
+		return this.geometry.getLength();
 	}
 
 	@Override
@@ -83,10 +85,13 @@ public class Edge {
 	}
 
 	@JsonSerialize(using = GeometrySerializer.class)
-	@JsonDeserialize(contentUsing = GeometryDeserializer.class)
 	public LineString getGeometry() {
 		GeometryFactory geomFact = new GeometryFactory();
 		Coordinate[] coords = {this.source.getCoordinate(), this.target.getCoordinate()};
 		return geomFact.createLineString(coords);
+	}
+	
+	public void setGeometry(LineString geometry) {
+		this.geometry = geometry;
 	}
 }
